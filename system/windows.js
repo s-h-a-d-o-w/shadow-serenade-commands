@@ -1,13 +1,16 @@
 if (require('../utils/consts').isWindows) {
-  serenade.global().command('emoji', (api) => {
-    api.pressKey('.', ['windows'])
+  const { addGlobalCommands } = require('../utils')
+
+  addGlobalCommands({
+    emoji: (api) => {
+      api.pressKey('.', ['windows'])
+    },
+    screenshot: (api) => {
+      api.pressKey('S', ['windows'])
+    },
   })
 
-  serenade.global().command('screenshot', (api) => {
-    api.pressKey('S', ['windows'])
-  })
-
-  // Window resizing
+  // Window resizing (Everything below)
   const ffi = require('ffi-napi')
   const ref = require('ref-napi')
   const StructType = require('ref-struct-di')(ref)
@@ -31,6 +34,7 @@ if (require('../utils/consts').isWindows) {
   })
   const SW_RESTORE = 9
 
+  // Used for investigation/debugging
   serenade.global().command('dimensions', async (api) => {
     const rect = new RectStruct()
     const handle = user32.GetForegroundWindow()

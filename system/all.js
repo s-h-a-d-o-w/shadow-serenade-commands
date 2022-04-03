@@ -1,54 +1,49 @@
 const { isWindows } = require('../utils/consts')
-const { pause } = require('../utils')
+const { addGlobalCommands, pause } = require('../utils')
 
-serenade.global().command('find <%text%>', async (api, matches) => {
-  await api.pressKey('f', ['commandOrControl'])
-  await new Promise((resolve) => setTimeout(resolve, 50))
-  await api.typeText(matches.text)
-})
-
-serenade.global().command('dict', async (api) => {
-  await api.runCommand('dictation box')
-  await api.runCommand('start dictating')
-})
-
-serenade.global().command('double click', async (api) => {
-  await api.click('left', 2)
-})
-
-serenade.global().command('raw paste', async (api) => {
-  await api.pressKey('v', ['commandOrControl'])
-})
-
-serenade.global().command('replace paste', async (api) => {
-  await api.pressKey('a', ['commandOrControl'])
-  await api.pressKey('v', ['commandOrControl'])
-})
-
-serenade.global().command('copy all', async (api) => {
-  await api.pressKey('a', ['commandOrControl'])
-  await api.pressKey('c', ['commandOrControl'])
-})
-
-serenade.global().command('kill', async (api) => {
-  await api.pressKey('c', ['commandOrControl'])
-  await api.pressKey('c', ['commandOrControl'])
-  await pause(500)
-  await api.pressKey('enter')
-})
-
-serenade.global().command('review', async (api) => {
-  await api.typeText('git pull && yarn && yarn dev')
-  await api.pressKey('enter')
-})
-
-// Currently doesn't work on Windows
-serenade.global().command('select left', async (api) => {
-  await api.pressKey('left', ['commandOrControl', 'shift'])
-})
-
-serenade.global().command('select right', async (api) => {
-  await api.pressKey('right', ['commandOrControl', 'shift'])
+addGlobalCommands({
+  dict: async (api) => {
+    await api.runCommand('dictation box')
+    await api.runCommand('start dictating')
+  },
+  'double click': async (api) => {
+    await api.click('left', 2)
+  },
+  'find <%text%>': async (api, matches) => {
+    await api.pressKey('f', ['commandOrControl'])
+    await new Promise((resolve) => setTimeout(resolve, 50))
+    await api.typeText(matches.text)
+  },
+  kill: async (api) => {
+    await api.pressKey('c', ['commandOrControl'])
+    await api.pressKey('c', ['commandOrControl'])
+    await pause(500)
+    await api.pressKey('enter')
+  },
+  review: async (api) => {
+    await api.typeText('git pull && yarn && yarn dev')
+    await api.pressKey('enter')
+  },
+  // Currently doesn't work on Windows
+  'select left': async (api) => {
+    await api.pressKey('left', ['commandOrControl', 'shift'])
+  },
+  'select right': async (api) => {
+    await api.pressKey('right', ['commandOrControl', 'shift'])
+  },
+  // Copy paste commands
+  'raw paste': async (api) => {
+    // Since saying ctrl+v is often detected as ctrl+b
+    await api.pressKey('v', ['commandOrControl'])
+  },
+  'replace paste': async (api) => {
+    await api.pressKey('a', ['commandOrControl'])
+    await api.pressKey('v', ['commandOrControl'])
+  },
+  'copy all': async (api) => {
+    await api.pressKey('a', ['commandOrControl'])
+    await api.pressKey('c', ['commandOrControl'])
+  },
 })
 
 // Launch terminals in the predefined directories `dev` and `temp` on
