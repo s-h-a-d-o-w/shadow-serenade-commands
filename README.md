@@ -1,5 +1,3 @@
-<img src="https://cdn.serenade.ai/img/logo-github.png" width="250px" alt="Serenade Logo" />
-
 # s-h-a-d-o-w's Serenade Commands (particularly useful for Linux and Windows)
 
 To learn more about custom Serenade commands, check out the [Serenade Documentation](https://serenade.ai/docs#custom-commands).
