@@ -32,7 +32,7 @@ addGlobalCommands({
     await api.pressKey('right', ['commandOrControl', 'shift'])
   },
   // Copy paste commands
-  'raw paste': async (api) => {
+  'native paste': async (api) => {
     // Since saying ctrl+v is often detected as ctrl+b
     await api.pressKey('v', ['commandOrControl'])
   },
