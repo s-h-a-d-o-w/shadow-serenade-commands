@@ -2,6 +2,10 @@ const { isWindows } = require('../utils/consts')
 const { addGlobalCommands, pause } = require('../utils')
 
 addGlobalCommands({
+  def: async (api) => {
+    await api.typeText('yarn dev')
+    await api.pressKey('enter')
+  },
   dict: async (api) => {
     await api.runCommand('dictation box')
     await api.runCommand('start dictating')
