@@ -5,6 +5,7 @@ const mappedSpecialKeys = {
   ampersand: ['&'],
   at: ['@'],
   bang: ['!'],
+  backtick: ['`'],
   backslash: ['\\'],
   colon: [':'],
   comma: [','],
