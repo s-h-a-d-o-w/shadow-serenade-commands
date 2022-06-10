@@ -10,6 +10,7 @@ const mappedSpecialKeys = {
   colon: [':'],
   comma: [','],
   dash: ['-'],
+  dot: ['.'],
   'double quote': ['"'],
   end: ['end'],
   equals: ['='],
