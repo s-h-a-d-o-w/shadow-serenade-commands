@@ -1,6 +1,7 @@
 const { pause } = require('../utils')
 
 const codeShortcutMap = {
+  bookmark: ['k', ['commandOrControl', 'shift']], // requires bookmark extension and changing its shortcut
   definition: ['f12'],
   'find references': ['f12', ['alt', 'shift']],
   'format document': ['f', ['alt', 'option', 'shift']],
