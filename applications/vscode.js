@@ -3,14 +3,14 @@ const { pause } = require('../utils')
 const codeShortcutMap = {
   bookmark: ['k', ['commandOrControl', 'shift']], // requires bookmark extension and changing its shortcut
   definition: ['f12'],
-  'find references': ['f12', ['alt', 'shift']],
+  references: ['f12', ['alt', 'shift']],
   'format document': ['f', ['alt', 'option', 'shift']],
   'organize imports': ['o', ['alt', 'shift']],
   'word wrap': ['z', ['alt']],
 }
 Object.keys(codeShortcutMap).forEach((shortcut) => {
-  serenade.app('code').command(shortcut, (api) => {
-    api.pressKey.apply(null, codeShortcutMap[shortcut])
+  serenade.app('code').command(shortcut, async (api) => {
+    await api.pressKey(...codeShortcutMap[shortcut])
   })
 })
 
@@ -29,6 +29,10 @@ serenade
     await api.typeText(matches.snippetName)
     await api.pressKey('enter')
   })
+
+serenade.app('code').command('file references', async (api) => {
+  await runPaletteCommand(api, 'typescript.findAllFileReferences')
+})
 
 serenade.app('code').command('restart typescript', async (api) => {
   await runPaletteCommand(api, 'typescript.restartTsServer')
