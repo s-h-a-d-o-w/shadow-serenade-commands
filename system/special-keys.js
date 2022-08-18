@@ -20,6 +20,7 @@ const mappedSpecialCharacters = {
   colon: ':',
   comma: ',',
   dash: '-',
+  dollar: '$',
   dot: '.',
   'double quote': '"',
   end: 'end',
