@@ -9,6 +9,10 @@ addGlobalCommands({
     await api.typeText('yarn e2e')
     await api.pressKey('enter')
   },
+  'end to end build': async (api) => {
+    await api.typeText('yarn e2e:build')
+    await api.pressKey('enter')
+  },
   'end to end watch': async (api) => {
     await api.typeText('yarn e2e:watch')
     await api.pressKey('enter')
