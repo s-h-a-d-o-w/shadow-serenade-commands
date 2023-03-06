@@ -14,7 +14,7 @@ addGlobalCommands({
     await new Promise((resolve) => setTimeout(resolve, 50))
     await api.typeText(matches.text)
   },
-  kill: async (api) => {
+  'kill process': async (api) => {
     await api.pressKey('c', ['commandOrControl'])
     await api.pressKey('c', ['commandOrControl'])
     await pause(500)
