@@ -13,6 +13,14 @@ addGlobalCommands({
     await api.typeText('git push --force')
     await api.pressKey('enter')
   },
+  'commit no verify': async (api) => {
+    await api.typeText('git commit')
+    await api.pressKey('enter')
+  },
+  'commit no verify': async (api) => {
+    await api.typeText('git commit --no-verify')
+    await api.pressKey('enter')
+  },
   'amend': async (api) => {
     await api.typeText('git commit --amend')
     await api.pressKey('enter')
