@@ -17,4 +17,12 @@ addGlobalCommands({
     await api.typeText('yarn e2e:watch')
     await api.pressKey('enter')
   },
+  'linux remove node modules': async (api) => {
+    await api.typeText('rm -rf node_modules')
+    await api.pressKey('enter')
+  },
+  'windows remove node modules': async (api) => {
+    await api.typeText('rmdir /S /Q node_modules')
+    await api.pressKey('enter')
+  },
 })
