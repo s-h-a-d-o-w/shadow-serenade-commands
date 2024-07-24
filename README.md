@@ -2,6 +2,12 @@
 
 To learn more about custom Serenade commands, check out the [Serenade Documentation](https://serenade.ai/docs#custom-commands).
 
+## Requirements for specific features
+
+- Agnostic JS package management: https://gist.github.com/s-h-a-d-o-w/d1be4eb4ecad3576af8fa69c248be615
+- Browser extension reload: https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid/related?hl=en
+- VS Code bookmark extension
+
 ## How to install
 
 1. Clone/download into your Serenade custom commands directory.
