@@ -5,7 +5,6 @@ const { addGlobalCommands } = require('../utils')
 addGlobalCommands({
   'remove directory linux': async (api) => {
     await api.typeText('rm -rf ')
-    await api.pressKey('enter')
   },
   'remove directory windows': async (api) => {
     await api.typeText('rmdir /S /Q ')
