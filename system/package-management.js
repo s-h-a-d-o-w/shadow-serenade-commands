@@ -19,11 +19,11 @@ Object.keys(argumentMap).forEach((argument) => {
 })
 
 addGlobalCommands({
-  'linux remove node modules': async (api) => {
+  'remove node modules linux': async (api) => {
     await api.typeText('rm -rf node_modules')
     await api.pressKey('enter')
   },
-  'windows remove node modules': async (api) => {
+  'remove node modules windows': async (api) => {
     await api.typeText('rmdir /S /Q node_modules')
     await api.pressKey('enter')
   },
