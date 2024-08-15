@@ -7,6 +7,7 @@ const argumentMap = {
   'end to end': 'e2e',
   'end to end build': 'e2e:build',
   'end to end watch': 'e2e:watch',
+  install: 'install',
   lint: 'lint',
   start: 'start',
   test: 'test',
