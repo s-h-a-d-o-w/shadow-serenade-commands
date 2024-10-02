@@ -21,7 +21,8 @@ addGlobalCommands({
     await api.pressKey('enter')
   },
   review: async (api) => {
-    await api.typeText('git pull && yarn && yarn dev')
+    // Requires something like: https://gist.github.com/s-h-a-d-o-w/d1be4eb4ecad3576af8fa69c248be615
+    await api.typeText('git pull && pm install && pm dev')
     await api.pressKey('enter')
   },
   // Currently doesn't work on Windows
