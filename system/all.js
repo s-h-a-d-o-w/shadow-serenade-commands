@@ -97,3 +97,36 @@ Object.entries(terminals).forEach(([command, path]) => {
     }
   })
 })
+
+// Audio device switching
+const setAudioOutput = async (api, deviceId) => {
+  if (isWindows) {
+    await api.runShell('nircmdc', ['setdefaultsounddevice', `${deviceId}`])
+  } else {
+    const path = require('path')
+    await api.runShell(
+      path.join(__dirname, '../shell-scripts/audio.sh'),
+      [deviceId],
+      { shell: true }
+    )
+  }
+}
+serenade.global().command('headphones', async (api) => {
+  if (isWindows) {
+    // These names are the same as in Windows settings, where you can also rename devices.
+    await setAudioOutput(api, 'Realtek HD Audio 2nd output')
+  } else {
+    // Get device ids by running the shell script above without an argument
+    await setAudioOutput(api, 'alsa_output.pci-0000_00_1f.3.analog-stereo')
+  }
+})
+serenade.global().command('speakers', async (api) => {
+  if (isWindows) {
+    await setAudioOutput(api, '2- USB Audio Device')
+  } else {
+    await setAudioOutput(
+      api,
+      'alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo'
+    )
+  }
+})

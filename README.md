@@ -18,7 +18,8 @@ To learn more about custom Serenade commands, check out the [Serenade Documentat
 This is not an exhaustive list but the highlights for me that I use every day (depending on the OS I use, obviously 🙂) are:
 
 - A command to open the dictation box quickly - "dict". (Unfortunately, a command to stop dictating and close is currently not possible.)
-- A ton of special key commands, so that I don't need to keep saying "press" before everything when wanting to trigger special keys.
-- Resizing windows to fit an area that doesn't overlap with Serenade. (Uses `wmctrl`/`xdotool` on Linux)
-- An emoji command! 😊 (On Linux, this requires an open `xed` window.)
-- **(Linux only!)** Switching from headphones to speakers and vice versa, using `pactl`/`pacmd`.
+- A ton of special key commands, so that you don't need to keep saying "press" before everything when wanting to trigger special keys.
+- "reset window" to resize the current window to fit an area that doesn't overlap with Serenade. (Uses `wmctrl`/`xdotool` on Linux)
+- An "emoji" command! 😊 (On Linux, this requires an open `xed` window.)
+- "headphones"/"speakers" to switch the current audio output device. (Requires [`nircmdc`](https://www.nirsoft.net/utils/nircmd.html) to be globally available on Windows, uses `pactl`/`pacmd` on Linux.)
+- Linux only: "media <key>" commands - uses `xdotool`.
