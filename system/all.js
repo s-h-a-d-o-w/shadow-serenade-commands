@@ -1,6 +1,19 @@
 const { isWindows } = require('../utils/consts')
 const { addGlobalCommands, pause } = require('../utils')
 
+async function setAudioOutput(api, deviceId) {
+  if (isWindows) {
+    await api.runShell('nircmdc', ['setdefaultsounddevice', `${deviceId}`])
+  } else {
+    const path = require('path')
+    await api.runShell(
+      path.join(__dirname, '../shell-scripts/audio.sh'),
+      [deviceId],
+      { shell: true }
+    )
+  }
+}
+
 addGlobalCommands({
   dict: async (api) => {
     await api.runCommand('dictation box')
@@ -25,6 +38,7 @@ addGlobalCommands({
     await api.typeText('git pull && pm install && pm dev')
     await api.pressKey('enter')
   },
+
   // Currently doesn't work on Windows
   'select left': async (api) => {
     await api.pressKey('left', ['commandOrControl', 'shift'])
@@ -32,6 +46,7 @@ addGlobalCommands({
   'select right': async (api) => {
     await api.pressKey('right', ['commandOrControl', 'shift'])
   },
+
   // Copy paste commands
   'native paste': async (api) => {
     // Since saying ctrl+v is often detected as ctrl+b
@@ -44,6 +59,27 @@ addGlobalCommands({
   'copy all': async (api) => {
     await api.pressKey('a', ['commandOrControl'])
     await api.pressKey('c', ['commandOrControl'])
+  },
+
+  // Audio device switching
+  headphones: async (api) => {
+    if (isWindows) {
+      // These names are the same as in Windows settings, where you can also rename devices.
+      await setAudioOutput(api, 'Realtek HD Audio 2nd output')
+    } else {
+      // Get device ids by running the shell script above without an argument
+      await setAudioOutput(api, 'alsa_output.pci-0000_00_1f.3.analog-stereo')
+    }
+  },
+  speakers: async (api) => {
+    if (isWindows) {
+      await setAudioOutput(api, '2- USB Audio Device')
+    } else {
+      await setAudioOutput(
+        api,
+        'alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo'
+      )
+    }
   },
 })
 
@@ -65,68 +101,36 @@ const cleanEnvironment = Object.fromEntries(
   )
 )
 Object.entries(terminals).forEach(([command, path]) => {
-  serenade.global().command(`terminal ${command}`, (api) => {
-    if (isWindows) {
-      api.runShell('wt', ['--title', path, '-d', `%userprofile%\\${path}`], {
-        shell: true,
-        env: cleanEnvironment,
-      })
-    } else {
-      api.runShell(
-        'gnome-terminal',
-        [`--working-directory=${process.env.HOME}/${path}`],
-        { env: cleanEnvironment }
-      )
-    }
+  addGlobalCommands({
+    [`terminal ${command}`]: (api) => {
+      if (isWindows) {
+        api.runShell('wt', ['--title', path, '-d', `%userprofile%\\${path}`], {
+          shell: true,
+          env: cleanEnvironment,
+        })
+      } else {
+        api.runShell(
+          'gnome-terminal',
+          [`--working-directory=${process.env.HOME}/${path}`],
+          { env: cleanEnvironment }
+        )
+      }
+    },
+    [`linux ${command}`]: (api) => {
+      if (isWindows) {
+        api.runShell(
+          'wt',
+          [
+            '--title',
+            path,
+            '--profile',
+            'Ubuntu',
+            '-d',
+            `/home/%username%/${path}`,
+          ],
+          { shell: true, env: cleanEnvironment }
+        )
+      }
+    },
   })
-
-  serenade.global().command(`linux ${command}`, (api) => {
-    if (isWindows) {
-      api.runShell(
-        'wt',
-        [
-          '--title',
-          path,
-          '--profile',
-          'Ubuntu',
-          '-d',
-          `/home/%username%/${path}`,
-        ],
-        { shell: true, env: cleanEnvironment }
-      )
-    }
-  })
-})
-
-// Audio device switching
-const setAudioOutput = async (api, deviceId) => {
-  if (isWindows) {
-    await api.runShell('nircmdc', ['setdefaultsounddevice', `${deviceId}`])
-  } else {
-    const path = require('path')
-    await api.runShell(
-      path.join(__dirname, '../shell-scripts/audio.sh'),
-      [deviceId],
-      { shell: true }
-    )
-  }
-}
-serenade.global().command('headphones', async (api) => {
-  if (isWindows) {
-    // These names are the same as in Windows settings, where you can also rename devices.
-    await setAudioOutput(api, 'Realtek HD Audio 2nd output')
-  } else {
-    // Get device ids by running the shell script above without an argument
-    await setAudioOutput(api, 'alsa_output.pci-0000_00_1f.3.analog-stereo')
-  }
-})
-serenade.global().command('speakers', async (api) => {
-  if (isWindows) {
-    await setAudioOutput(api, '2- USB Audio Device')
-  } else {
-    await setAudioOutput(
-      api,
-      'alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo'
-    )
-  }
 })
