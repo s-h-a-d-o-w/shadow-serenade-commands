@@ -1,5 +1,7 @@
 const { pause } = require('../utils')
 
+const codeApp = serenade.app('code')
+
 // Shortcuts
 // ==========================
 const codeShortcutMap = {
@@ -12,7 +14,7 @@ const codeShortcutMap = {
   'word wrap': ['z', ['alt']],
 }
 Object.keys(codeShortcutMap).forEach((shortcut) => {
-  serenade.app('code').command(shortcut, async (api) => {
+  codeApp.command(shortcut, async (api) => {
     await api.pressKey(...codeShortcutMap[shortcut])
   })
 })
@@ -32,16 +34,28 @@ const paletteCommandMap = {
   'restart typescript': 'typescript.restartTsServer',
 }
 Object.keys(paletteCommandMap).forEach((key) => {
-  serenade.app('code').command(key, async (api) => {
+  codeApp.command(key, async (api) => {
     await runPaletteCommand(api, paletteCommandMap[key])
   })
 })
 
-serenade
-  .app('code')
-  .command('snippet <%snippetName%>', async (api, matches) => {
-    await runPaletteCommand(api, 'editor.action.insertSnippet')
-    await pause(0)
-    await api.typeText(matches.snippetName)
-    await api.pressKey('enter')
-  })
+codeApp.command('snippet <%snippetName%>', async (api, matches) => {
+  await runPaletteCommand(api, 'editor.action.insertSnippet')
+  await pause(0)
+  await api.typeText(matches.snippetName)
+  await api.pressKey('enter')
+})
+
+// Copilot commands (cursor has to be in copilot prompt input)
+codeApp.command('ai codebase', async (api) => {
+  for (const key of ['#', 'c', 'enter']) {
+    await api.pressKey(key)
+    await pause(10)
+  }
+})
+codeApp.command('ai file', async (api) => {
+  for (const key of ['#', 'f', 'enter', 'enter']) {
+    await api.pressKey(key)
+    await pause(10)
+  }
+})
