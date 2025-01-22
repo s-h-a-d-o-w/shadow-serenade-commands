@@ -50,12 +50,19 @@ codeApp.command('snippet <%snippetName%>', async (api, matches) => {
 codeApp.command('ai codebase', async (api) => {
   for (const key of ['#', 'c', 'enter']) {
     await api.pressKey(key)
-    await pause(10)
+    await pause(50)
   }
 })
 codeApp.command('ai file', async (api) => {
   for (const key of ['#', 'f', 'enter', 'enter']) {
     await api.pressKey(key)
-    await pause(10)
+    await pause(50)
+  }
+})
+
+codeApp.command('ai selection', async (api) => {
+  for (const key of ['#', 's', 'enter']) {
+    await api.pressKey(key)
+    await pause(50)
   }
 })
