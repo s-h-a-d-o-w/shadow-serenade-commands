@@ -5,14 +5,15 @@ const { pause } = require('../utils')
 const codeShortcutMap = {
   bookmark: ['k', ['commandOrControl', 'shift']], // requires bookmark extension and changing its shortcut
   definition: ['f12'],
+  hover: ['h', ['alt']],
   references: ['f12', ['alt', 'shift']],
   'format document': ['f', ['alt', 'option', 'shift']],
   'organize imports': ['o', ['alt', 'shift']],
   'word wrap': ['z', ['alt']],
 }
-Object.keys(codeShortcutMap).forEach((key) => {
-  serenade.app('code').command(key, async (api) => {
-    await api.pressKey(...codeShortcutMap[key])
+Object.keys(codeShortcutMap).forEach((shortcut) => {
+  serenade.app('code').command(shortcut, async (api) => {
+    await api.pressKey(...codeShortcutMap[shortcut])
   })
 })
 
