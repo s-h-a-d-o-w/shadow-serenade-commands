@@ -7,6 +7,7 @@ const codeApp = serenade.app('code')
 const codeShortcutMap = {
   bookmark: ['k', ['commandOrControl', 'shift']], // requires bookmark extension and changing its shortcut
   definition: ['f12'],
+  fix: ['.', ['commandOrControl']],
   hover: ['h', ['alt']],
   references: ['f12', ['alt', 'shift']],
   'format document': ['f', ['alt', 'option', 'shift']],
@@ -47,12 +48,14 @@ codeApp.command('snippet <%snippetName%>', async (api, matches) => {
 })
 
 // Copilot commands (cursor has to be in copilot prompt input)
-codeApp.command('ai codebase', async (api) => {
+const aiCodeBaseHandler = async (api) => {
   for (const key of ['#', 'c', 'enter']) {
     await api.pressKey(key)
     await pause(50)
   }
-})
+}
+codeApp.command('ai code base', aiCodeBaseHandler)
+
 codeApp.command('ai file', async (api) => {
   for (const key of ['#', 'f', 'enter', 'enter']) {
     await api.pressKey(key)
