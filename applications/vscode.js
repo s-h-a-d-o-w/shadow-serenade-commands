@@ -48,24 +48,24 @@ codeApp.command('snippet <%snippetName%>', async (api, matches) => {
 })
 
 // Copilot commands (cursor has to be in copilot prompt input)
-const aiCodeBaseHandler = async (api) => {
+const KEY_PRESS_DELAY = 100
+codeApp.command('ai code base', async (api) => {
   for (const key of ['#', 'c', 'enter']) {
     await api.pressKey(key)
-    await pause(50)
+    await pause(KEY_PRESS_DELAY)
   }
-}
-codeApp.command('ai code base', aiCodeBaseHandler)
+})
 
 codeApp.command('ai file', async (api) => {
   for (const key of ['#', 'f', 'enter', 'enter']) {
     await api.pressKey(key)
-    await pause(50)
+    await pause(KEY_PRESS_DELAY)
   }
 })
 
 codeApp.command('ai selection', async (api) => {
   for (const key of ['#', 's', 'enter']) {
     await api.pressKey(key)
-    await pause(50)
+    await pause(KEY_PRESS_DELAY)
   }
 })
