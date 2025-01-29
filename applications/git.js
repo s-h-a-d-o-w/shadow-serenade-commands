@@ -32,6 +32,10 @@ addGlobalCommands({
     await api.typeText('git push --force')
     await api.pressKey('enter')
   },
+  'push tags': async (api) => {
+    await api.typeText('git push --tags')
+    await api.pressKey('enter')
+  },
   'reset origin <%branchName%>': async (api, matches) => {
     await api.typeText(`git reset --hard origin/${matches.branchName}`)
   },
