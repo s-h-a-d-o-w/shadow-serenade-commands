@@ -134,3 +134,40 @@ Object.entries(terminals).forEach(([command, path]) => {
     },
   })
 })
+
+// Media keys
+const windowsMediaCommands = {
+  mute: 173, // VK_VOLUME_MUTE: 0xAD
+  next: 176, // VK_MEDIA_NEXT_TRACK: 0xB0
+  pause: 179, // VK_MEDIA_PLAY_PAUSE: 0xB3 (also used for play)
+  play: 179, // VK_MEDIA_PLAY_PAUSE: 0xB3
+  previous: 177, // VK_MEDIA_PREV_TRACK: 0xB1
+  unmute: 173, // VK_VOLUME_MUTE: 0xAD
+}
+const linuxMediaCommands = {
+  mute: 'XF86AudioMute',
+  next: 'XF86AudioNext',
+  pause: 'XF86AudioPlay',
+  play: 'XF86AudioPlay',
+  previous: 'XF86AudioPrev',
+  unmute: 'XF86AudioMute',
+}
+
+const generateMediaCommand = (command) =>
+  isWindows
+    ? [
+        'powershell',
+        [
+          '-Command',
+          `$wshell = New-Object -ComObject WScript.Shell; $wshell.SendKeys([char]${command})`,
+        ],
+      ]
+    : ['xdotool', ['key', '--clearmodifiers', command]]
+
+const mediaCommands = isWindows ? windowsMediaCommands : linuxMediaCommands
+
+Object.entries(mediaCommands).forEach(([action, keyValue]) => {
+  serenade.global().command(`media ${action}`, async (api) => {
+    await api.runShell(...generateMediaCommand(keyValue))
+  })
+})

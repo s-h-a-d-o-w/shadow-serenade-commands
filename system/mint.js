@@ -31,25 +31,4 @@ if (require('../utils/consts').isLinux) {
       { shell: true }
     )
   })
-
-  // Media keys
-  const generateMediaCommand = (command) => [
-    'xdotool',
-    ['key', '--clearmodifiers', command],
-  ]
-  serenade.global().command('media mute', async (api) => {
-    await api.runShell.apply(null, generateMediaCommand('XF86AudioMute'))
-  })
-  serenade.global().command('media next', async (api) => {
-    await api.runShell.apply(null, generateMediaCommand('XF86AudioNext'))
-  })
-  serenade.global().command('media pause', async (api) => {
-    await api.runShell.apply(null, generateMediaCommand('XF86AudioPlay'))
-  })
-  serenade.global().command('media play', async (api) => {
-    await api.runShell.apply(null, generateMediaCommand('XF86AudioPlay'))
-  })
-  serenade.global().command('media previous', async (api) => {
-    await api.runShell.apply(null, generateMediaCommand('XF86AudioPrev'))
-  })
 }
