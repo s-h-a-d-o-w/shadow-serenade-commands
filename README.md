@@ -22,4 +22,4 @@ This is not an exhaustive list but the highlights for me that I use every day (d
 - "reset window" to resize the current window to fit an area that doesn't overlap with Serenade. (Uses `wmctrl`/`xdotool` on Linux)
 - An "emoji" command! 😊 (On Linux, this requires an open `xed` window.)
 - "headphones"/"speakers" to switch the current audio output device. (Requires [`nircmdc`](https://www.nirsoft.net/utils/nircmd.html) to be globally available on Windows, uses `pactl`/`pacmd` on Linux.)
-- Linux only: "media <key>" commands - uses `xdotool`.
+- "media <key>" commands. (Uses `xdotool` on Linux and Powershell on Windows.)
