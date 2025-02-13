@@ -20,6 +20,14 @@ Object.keys(argumentMap).forEach((argument) => {
 })
 
 addGlobalCommands({
+  approve: async (api) => {
+    // Used by pnpm, not sure about others.
+    await api.typeText('pm approve-builds')
+    await api.pressKey('enter')
+    await api.pressKey('a')
+    await api.pressKey('enter')
+    // We don't hit "y" automatically because I think that would be a step too far security-wise.
+  },
   'remove node modules linux': async (api) => {
     await api.typeText('rm -rf node_modules')
     await api.pressKey('enter')
