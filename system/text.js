@@ -11,4 +11,8 @@ addGlobalCommands({
     await api.typeText('```\n\n```')
     await api.pressKey('left', [], 4)
   },
+  ticks: async (api) => {
+    await api.typeText('``')
+    await api.pressKey('left')
+  },
 })
