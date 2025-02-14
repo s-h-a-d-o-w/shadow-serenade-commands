@@ -37,4 +37,7 @@ addGlobalCommands({
     await api.typeText('rmdir /S /Q node_modules')
     await api.pressKey('enter')
   },
+  y: async (api) => {
+    await api.typeText('pm why ')
+  },
 })
