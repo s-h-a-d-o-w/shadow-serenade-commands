@@ -11,6 +11,7 @@ const argumentMap = {
   lint: 'lint',
   start: 'start',
   test: 'test',
+  types: 'typecheck',
 }
 Object.keys(argumentMap).forEach((argument) => {
   serenade.global().command(argument, async (api) => {
