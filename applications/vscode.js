@@ -33,6 +33,7 @@ const paletteCommandMap = {
   'file references': 'typescript.findAllFileReferences',
   'restart task': 'workbench.action.tasks.restartTask',
   'restart typescript': 'typescript.restartTsServer',
+  'restart lint': 'eslint.restart',
 }
 Object.keys(paletteCommandMap).forEach((key) => {
   codeApp.command(key, async (api) => {
