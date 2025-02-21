@@ -1,7 +1,7 @@
 const { addGlobalCommands } = require('../utils')
 
 // Requires something like: https://gist.github.com/s-h-a-d-o-w/d1be4eb4ecad3576af8fa69c248be615
-const argumentMap = {
+const commands = {
   build: 'build',
   def: 'dev',
   'end to end': 'e2e',
@@ -13,10 +13,22 @@ const argumentMap = {
   test: 'test',
   types: 'typecheck',
 }
-Object.keys(argumentMap).forEach((argument) => {
+Object.keys(commands).forEach((argument) => {
   serenade.global().command(argument, async (api) => {
-    await api.typeText('pm ' + argumentMap[argument])
+    await api.typeText('pm ' + commands[argument])
     await api.pressKey('enter')
+  })
+})
+
+const commandsWithoutExecution = {
+  add: 'add',
+  'add def': 'add -D',
+  remove: 'remove',
+  y: 'why',
+}
+Object.keys(commandsWithoutExecution).forEach((argument) => {
+  serenade.global().command(argument, async (api) => {
+    await api.typeText('pm ' + commandsWithoutExecution[argument] + ' ')
   })
 })
 
@@ -36,8 +48,5 @@ addGlobalCommands({
   'remove node modules windows': async (api) => {
     await api.typeText('rmdir /S /Q node_modules')
     await api.pressKey('enter')
-  },
-  y: async (api) => {
-    await api.typeText('pm why ')
   },
 })
