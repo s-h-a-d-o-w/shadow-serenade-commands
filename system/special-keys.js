@@ -34,6 +34,7 @@ const mappedSpecialCharacters = {
   'left bracket': '[',
   'less than': '<',
   minus: '-',
+  not: '!',
   percent: '%',
   period: '.',
   pipe: '|',
