@@ -9,6 +9,7 @@ const codeShortcutMap = {
   definition: ['f12'],
   fix: ['.', ['commandOrControl']],
   hover: ['h', ['alt']],
+  palette: ['p', ['commandOrControl', 'shift']],
   references: ['f12', ['alt', 'shift']],
   'format document': ['f', ['alt', 'option', 'shift']],
   'organize imports': ['o', ['alt', 'shift']],
