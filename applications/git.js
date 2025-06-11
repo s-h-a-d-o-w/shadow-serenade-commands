@@ -9,6 +9,12 @@ addGlobalCommands({
     await api.typeText('git commit --amend --no-verify')
     await api.pressKey('enter')
   },
+  clone: async (api) => {
+    await api.typeText('git clone ')
+  },
+  'clone flat': async (api) => {
+    await api.typeText('git clone --depth=1 ')
+  },
   commit: async (api) => {
     await api.typeText('git commit')
     await api.pressKey('enter')
@@ -17,8 +23,8 @@ addGlobalCommands({
     await api.typeText('git commit --no-verify')
     await api.pressKey('enter')
   },
-  move: (api) => {
-    api.typeText('git mv ')
+  move: async (api) => {
+    await api.typeText('git mv ')
   },
   pull: async (api) => {
     await api.typeText('git pull')
