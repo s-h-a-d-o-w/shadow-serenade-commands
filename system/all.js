@@ -171,3 +171,7 @@ Object.entries(mediaCommands).forEach(([action, keyValue]) => {
     await api.runShell(...generateMediaCommand(keyValue))
   })
 })
+
+serenade.global().command('desktop', async (api) => {
+  await api.pressKey('d', ['win'])
+})
