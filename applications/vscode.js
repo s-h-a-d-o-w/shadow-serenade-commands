@@ -32,9 +32,10 @@ async function runPaletteCommand(api, command) {
 
 const paletteCommandMap = {
   'file references': 'typescript.findAllFileReferences',
+  'restart extensions': 'workbench.action.restartExtensionHost',
+  'restart lint': 'eslint.restart',
   'restart task': 'workbench.action.tasks.restartTask',
   'restart typescript': 'typescript.restartTsServer',
-  'restart lint': 'eslint.restart',
 }
 Object.keys(paletteCommandMap).forEach((key) => {
   codeApp.command(key, async (api) => {
