@@ -4,6 +4,7 @@ const shortcutMap = {
   'alt tab': ['tab', ['alt']],
   switch: ['tab', ['alt']],
   toggle: ['tab', ['control']],
+  break: ['c', ['control']],
 }
 Object.keys(shortcutMap).forEach((shortcut) => {
   serenade.global().command(shortcut, (api) => {
@@ -25,6 +26,7 @@ const mappedSpecialCharacters = {
   dot: '.',
   'double quote': '"',
   end: 'end',
+  equal: '=',
   equals: '=',
   'exclamation point': '!',
   'greater than': '>',
