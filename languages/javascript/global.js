@@ -9,7 +9,7 @@ serenade.language('javascript').text('insert type of', 'typeof ')
 serenade.language('javascript').snippet('key of <%name%>', 'keyof <%name%>')
 serenade.language('javascript').snippet('type of <%name%>', 'typeof <%name%>')
 
-// Standard constructs
+// Standard constructs - A fourth parameter to snippet could be used to convey what the template string contains. But so far, that hasn't seemed necessary to me.
 serenade
   .language('javascript')
   .snippet('const <%name%>', 'const <%name%> = <%cursor%>;')
@@ -38,6 +38,16 @@ serenade
     'if <%expression%>',
     'if (<%expression%>) {\n<%indent%><%cursor%>\n}'
   )
+
+serenade
+  .language('javascript')
+  .snippet('return <%expression%>', 'return <%expression%>;')
+
+new Array('log', 'info', 'error', 'warning').forEach((logType) => {
+  serenade
+    .language('javascript')
+    .snippet(`${logType} <%string%>`, `console.${logType}("<%string%>");`)
+})
 
 // Custom
 serenade
