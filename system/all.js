@@ -83,10 +83,11 @@ addGlobalCommands({
   },
 })
 
-// Launch terminals in the predefined directories `dev` and `temp` on
-// Linux (gnome-terminal) and Windows (wt).
+// Launch terminals in the directories `dev` and `temp` on Linux (gnome-terminal) and Windows (wt).
+// Directories are expected to have been created previously in the home directory.
 const terminals = {
   def: 'dev',
+  dev: 'dev',
   temp: 'temp',
 }
 const cleanEnvironment = Object.fromEntries(

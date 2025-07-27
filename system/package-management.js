@@ -23,6 +23,7 @@ Object.keys(commands).forEach((argument) => {
 const commandsWithoutExecution = {
   add: 'add',
   'add def': 'add -D',
+  'add dev': 'add -D',
   remove: 'remove',
   y: 'why',
 }
