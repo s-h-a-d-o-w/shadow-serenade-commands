@@ -4,6 +4,7 @@ const { addGlobalCommands } = require('../utils')
 const commands = {
   build: 'build',
   def: 'dev',
+  dev: 'dev',
   'end to end': 'e2e',
   'end to end build': 'e2e:build',
   'end to end watch': 'e2e:watch',
