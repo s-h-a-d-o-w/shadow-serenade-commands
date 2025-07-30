@@ -9,6 +9,9 @@ addGlobalCommands({
     await api.typeText('git commit --amend --no-verify')
     await api.pressKey('enter')
   },
+  'change origin': async (api) => {
+    await api.typeText('git remote set-url origin ')
+  },
   clone: async (api) => {
     await api.typeText('git clone ')
   },
@@ -45,8 +48,14 @@ addGlobalCommands({
   'reset origin <%branchName%>': async (api, matches) => {
     await api.typeText(`git reset --hard origin/${matches.branchName}`)
   },
+  'reset soft': async (api) => {
+    await api.typeText(`git reset --soft HEAD~1`)
+  },
   'reset soft <%count%>': async (api, matches) => {
     await api.typeText(`git reset --soft HEAD~${matches.count}`)
+  },
+  'squash <%count%>': async (api, matches) => {
+    await api.typeText(`git rebase -i HEAD~${matches.count}`)
     await api.pressKey('enter')
   },
 })
