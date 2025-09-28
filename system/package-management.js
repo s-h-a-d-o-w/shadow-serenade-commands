@@ -47,6 +47,10 @@ addGlobalCommands({
     await api.typeText('rm -rf node_modules')
     await api.pressKey('enter')
   },
+  'remove node modules power': async (api) => {
+    await api.typeText('Remove-Item -Recurse -Force node_modules')
+    await api.pressKey('enter')
+  },
   'remove node modules windows': async (api) => {
     await api.typeText('rmdir /S /Q node_modules')
     await api.pressKey('enter')
