@@ -1,0 +1,4 @@
+onlyBuiltDependencies:
+  - ffi-napi
+  - koffi
+  - ref-napi

@@ -10,35 +10,39 @@ if (require('../utils/consts').isWindows) {
     },
   })
 
-  // Window resizing (Everything below)
-  const ffi = require('ffi-napi')
-  const ref = require('ref-napi')
-  const StructType = require('ref-struct-di')(ref)
+  const koffi = require('koffi')
 
-  const RectStruct = StructType({
-    left: ffi.types.long,
-    top: ffi.types.long,
-    right: ffi.types.long,
-    bottom: ffi.types.long,
+  const RectStruct = koffi.struct({
+    left: 'long',
+    top: 'long',
+    right: 'long',
+    bottom: 'long',
   })
 
-  const user32 = ffi.Library('user32', {
-    GetForegroundWindow: ['int32', []],
-    GetWindowRect: ['int32', ['int32', ref.refType(RectStruct)]],
-    MoveWindow: ['bool', ['int32', 'int32', 'int32', 'int32', 'int32', 'bool']],
-    SetWindowPos: [
-      'int32',
-      ['int32', 'int32', 'int32', 'int32', 'int32', 'int32', 'int32'],
-    ],
-    ShowWindow: ['bool', ['int32', 'int32']],
-  })
+  const user32 = koffi.load('user32.dll')
+  const GetForegroundWindow = user32.func('GetForegroundWindow', 'int32', [])
+  const GetWindowRect = user32.func('GetWindowRect', 'int32', [
+    'int32',
+    koffi.out(koffi.pointer(RectStruct)),
+  ])
+  const SetWindowPos = user32.func('SetWindowPos', 'int32', [
+    'int32',
+    'int32',
+    'int32',
+    'int32',
+    'int32',
+    'int32',
+    'int32',
+  ])
+  const ShowWindow = user32.func('ShowWindow', 'bool', ['int32', 'int32'])
+
   const SW_RESTORE = 9
 
   // Used for investigation/debugging
   serenade.global().command('dimensions', async (api) => {
-    const rect = new RectStruct()
-    const handle = user32.GetForegroundWindow()
-    user32.GetWindowRect(handle, rect.ref())
+    const rect = {}
+    const handle = GetForegroundWindow()
+    GetWindowRect(handle, [rect])
     await api.typeText(JSON.stringify(rect))
   })
 
@@ -47,16 +51,15 @@ if (require('../utils/consts').isWindows) {
     const target = { left: 0, top: 0, right: 1510, bottom: 1043 }
     const margin = 8
 
-    const handle = user32.GetForegroundWindow()
-    // api.runShell("msg", ["sh4dow", handle])
+    const handle = GetForegroundWindow()
     const activeApplication = await api.getActiveApplication()
-    user32.ShowWindow(handle, SW_RESTORE)
+    ShowWindow(handle, SW_RESTORE)
     if (
       withoutPadding.some((application) =>
         activeApplication.includes(application)
       )
     ) {
-      user32.SetWindowPos(
+      SetWindowPos(
         handle,
         0,
         target.left,
@@ -66,7 +69,7 @@ if (require('../utils/consts').isWindows) {
         0x0200
       )
     } else {
-      user32.SetWindowPos(
+      SetWindowPos(
         handle,
         0,
         target.left - margin,
