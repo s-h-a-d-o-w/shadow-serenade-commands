@@ -42,7 +42,7 @@ if (require('../utils/consts').isWindows) {
   serenade.global().command('dimensions', async (api) => {
     const rect = {}
     const handle = GetForegroundWindow()
-    GetWindowRect(handle, [rect])
+    GetWindowRect(handle, rect)
     await api.typeText(JSON.stringify(rect))
   })
 
