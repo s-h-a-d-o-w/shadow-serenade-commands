@@ -61,6 +61,11 @@ addGlobalCommands({
     await api.pressKey('c', ['commandOrControl'])
   },
 
+  // Just faster to say than "system"
+  'text <%text%>': async (api, matches) => {
+    await api.typeText(matches.text)
+  },
+
   // Audio device switching
   headphones: async (api) => {
     if (isWindows) {
