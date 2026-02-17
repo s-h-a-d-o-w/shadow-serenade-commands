@@ -8,6 +8,10 @@ if (require('../utils/consts').isWindows) {
     screenshot: (api) => {
       api.pressKey('S', ['windows'])
     },
+    sudo: async (api) => {
+      await api.typeText('gsudo')
+      api.pressKey('enter')
+    },
   })
 
   const koffi = require('koffi')
