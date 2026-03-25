@@ -10,6 +10,7 @@ serenade.language('javascript').snippet('key of <%name%>', 'keyof <%name%>')
 serenade.language('javascript').snippet('type of <%name%>', 'typeof <%name%>')
 
 // Standard constructs - A fourth parameter to snippet could be used to convey what the template string contains. But so far, that hasn't seemed necessary to me.
+// TODO: `snippet` unfortunately it doesn't type at the cursor location, so it sometimes inserts at the wrong place. Should improve that in my fork by making it possible to supply a flag that changes this behavior.
 serenade
   .language('javascript')
   .snippet('const <%name%>', 'const <%name%> = <%cursor%>;')
