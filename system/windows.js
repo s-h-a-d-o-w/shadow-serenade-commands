@@ -52,7 +52,7 @@ if (require('../utils/consts').isWindows) {
 
   serenade.global().command('reset window', async (api) => {
     const withoutPadding = ['code.exe']
-    const target = { left: 0, top: 0, right: 1510, bottom: 1043 }
+    const target = { left: 0, top: 0, right: 1550, bottom: 1043 }
     const margin = 8
 
     const handle = GetForegroundWindow()
