@@ -19,7 +19,7 @@ This is not an exhaustive list but the highlights for me that I use every day (d
 
 - A command to open the dictation box quickly - "dict". (Unfortunately, a command to stop dictating and close is currently not possible.)
 - A ton of special key commands, so that you don't need to keep saying "press" before everything when wanting to trigger special keys.
-- "reset window" to resize the current window to fit an area that doesn't overlap with Serenade. (Uses `wmctrl`/`xdotool` on Linux)
+- "reset window" to resize the current window to fit an area that doesn't overlap with Serenade. (Requires `wmctrl`/`xdotool` on Linux)
 - An "emoji" command! 😊 (On Linux, this requires an open `xed` window.)
 - "headphones"/"speakers" to switch the current audio output device. (Requires [`nircmdc`](https://www.nirsoft.net/utils/nircmd.html) to be globally available on Windows, uses `pactl`/`pacmd` on Linux.)
 - "media <key>" commands. (Uses `xdotool` on Linux and Powershell on Windows.)

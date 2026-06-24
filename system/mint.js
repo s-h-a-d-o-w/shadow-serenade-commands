@@ -1,5 +1,10 @@
 if (require('../utils/consts').isLinux) {
+  const { addGlobalCommands } = require('../utils')
+  const { pause } = require('../utils')
+  
   const shortcuts = {
+    emoji: ['.', ['control']],
+    screenshot: ['print', ['shift']],
     exit: ['f4', ['alt']],
     minimize: ['m', ['windows']],
     'terminal copy': ['c', ['control', 'shift']],
@@ -11,23 +16,22 @@ if (require('../utils/consts').isLinux) {
     })
   })
 
-  // Emoji
-  const { moveMouse } = require('./mouse')
-  const { pause } = require('../utils')
-  serenade.global().command('emoji', async (api) => {
-    await api.runCommand('focus xed')
-    await pause(10)
-    await api.setMouseLocation(1920 / 2, 1080 / 2)
-    await api.click('right')
-    await moveMouse(api, 50, 240)
-    await api.click()
+  addGlobalCommands({
+    sudo: async (api) => {
+      await api.typeText('sudo ')
+    },
   })
 
   // Window resizing
   serenade.global().command('reset window', async (api) => {
     await api.runShell(
       'wmctrl',
-      ['-i', '-r', '`xdotool getwindowfocus`', '-e', '0,380,0,1540,1000'],
+      ['-i', '-r', '`xdotool getwindowfocus`', '-b', 'remove,maximized_vert,maximized_horz'],
+      { shell: true }
+    )
+    await api.runShell(
+      'wmctrl',
+      ['-i', '-r', '`xdotool getwindowfocus`', '-e', '0,0,0,1540,1040'],
       { shell: true }
     )
   })
